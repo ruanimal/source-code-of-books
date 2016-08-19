@@ -1,3 +1,6 @@
 [submodule "python基础教程"]
 	path = python基础教程
 	url = https://github.com/ruanima/TenTinyPythonProject
+[submodule "javaScriptDOM编程艺术"]
+	path = javaScriptDOM编程艺术
+	url = git@github.com:ruanima/javaScriptAndDOM.git
