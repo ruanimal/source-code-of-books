@@ -24,7 +24,7 @@ int main(void) {
         } else {
             prev->next = current;
         }
-        printf("current: %d\n", (int) current);
+        printf("current: %d\n", (unsigned int) current);
         current->next = NULL;
         strcpy(current->title, input);
         puts("Enter your rating <0-10>:");
@@ -35,21 +35,25 @@ int main(void) {
         puts("Enter next movie title (empty line to stop):");
         prev = current;
     }
+
     if (head == NULL) {
         printf("No data entered.");
     } else {
         printf("Here is the movie list:\n");
     }
+
     current = head;
     while (current != NULL) {
         printf("Movie: %s Rating: %d\n", current->title, current->rating);
         current = current->next;
     }
+
+    /* 原本书上的代码会有段错误 */
     current = head;
     while (current != NULL) {
         head = current;
         current = current->next;
-        printf("free: %d\n", (int) head);
+        printf("free: %d\n", (unsigned int) head);
         free(head);
     }
     printf("Bye!\n");
