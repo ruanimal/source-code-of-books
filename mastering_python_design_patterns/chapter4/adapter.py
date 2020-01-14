@@ -1,3 +1,15 @@
+"""
+适配器模式, 实现不同接口之间的兼容
+1. 不修改原有接口的实现
+2. 不违反开放封闭原则
+
+"""
+
+
+import os,sys
+work_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(work_dir); sys.path.insert(0, work_dir); del work_dir
+
 from external import Synthesizer, Human
 
 

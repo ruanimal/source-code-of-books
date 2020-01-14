@@ -1,5 +1,13 @@
 # coding: utf-8
 
+"""
+原型模式
+    1. 就是copy, 并可选修改部分信息
+    2. copy分浅复制和深复制(deepcopy)
+    3. 用于根据已有对象创建副本
+"""
+
+
 import copy
 from collections import OrderedDict
 

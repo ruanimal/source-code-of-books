@@ -1,3 +1,16 @@
+"""
+工厂方法
+    1. 将对象的创建过程和使用解耦, 避免使用者自己关联对应的类
+    2. 对创建过程进行追踪和限制
+
+工厂方法函数, 通过参数来判断应该使用哪个类来创建对象,
+"""
+
+
+import os,sys
+work_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(work_dir); sys.path.insert(0, work_dir); del work_dir
+
 import xml.etree.ElementTree as etree
 import json
 

@@ -79,10 +79,11 @@ class CreamyBaconBuilder:
 
     def add_topping(self):
         print('adding the topping (mozzarella, bacon, ham, mushrooms, red onion, oregano) to your creamy bacon')
-        self.pizza.topping.append([t for t in
-                                   (PizzaTopping.mozzarella, PizzaTopping.bacon,
-                                    PizzaTopping.ham, PizzaTopping.mushrooms,
-                                    PizzaTopping.red_onion, PizzaTopping.oregano)])
+        self.pizza.topping.extend([
+            PizzaTopping.mozzarella, PizzaTopping.bacon,
+            PizzaTopping.ham, PizzaTopping.mushrooms,
+            PizzaTopping.red_onion, PizzaTopping.oregano,
+        ])
         time.sleep(STEP_DELAY)
         print('done with the topping (mozzarella, bacon, ham, mushrooms, red onion, oregano)')
 
@@ -101,8 +102,10 @@ class Waiter:
 
     def construct_pizza(self, builder):
         self.builder = builder
-        [step() for step in (builder.prepare_dough,
-                             builder.add_sauce, builder.add_topping, builder.bake)]
+        builder.prepare_dough()
+        builder.add_sauce()
+        builder.add_topping()
+        builder.bake()
 
     @property
     def pizza(self):

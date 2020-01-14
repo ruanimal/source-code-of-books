@@ -1,4 +1,9 @@
 # coding: utf-8
+"""
+外观模式
+    1. 为复杂系统提供外观切入点, 隐藏内部实现
+    2. 多层系统也可以使用外观模式
+"""
 
 from enum import Enum
 from abc import ABCMeta, abstractmethod

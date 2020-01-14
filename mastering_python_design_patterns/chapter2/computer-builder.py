@@ -38,9 +38,9 @@ class HardwareEngineer:
 
     def construct_computer(self, memory, hdd, gpu):
         self.builder = ComputerBuilder()
-        [step for step in (self.builder.configure_memory(memory),
-                           self.builder.configure_hdd(hdd),
-                           self.builder.configure_gpu(gpu))]
+        self.builder.configure_memory(memory)
+        self.builder.configure_hdd(hdd)
+        self.builder.configure_gpu(gpu)
 
     @property
     def computer(self):
