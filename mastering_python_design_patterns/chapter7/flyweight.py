@@ -1,4 +1,8 @@
 # coding: utf-8
+"""
+享元模式
+    1. 需要大量对象, 对象共享很多属性
+"""
 
 import random
 from enum import Enum

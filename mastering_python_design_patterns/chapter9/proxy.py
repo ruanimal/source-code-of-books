@@ -1,5 +1,14 @@
 # coding: utf-8
 
+"""
+代理模式
+    1. 远程代理
+    2. 虚拟代理
+    3. 保护代理
+    4. 智能代理
+"""
+
+
 
 class SensitiveInfo:
 
