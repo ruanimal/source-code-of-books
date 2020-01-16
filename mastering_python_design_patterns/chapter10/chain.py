@@ -1,3 +1,12 @@
+"""
+职责链
+    1. 直接访问首个节点
+    2. 不能处理则转发给下个节点
+    3. 直到没有下个节点
+    4. 实现发送方与接收方的解耦(比如物流网络)
+"""
+
+
 class Event:
 
     def __init__(self, name):
@@ -43,20 +52,28 @@ class MsgText(Widget):
     def handle_down(self, event):
         print('MsgText: {}'.format(event))
 
+def get_next_point(chain, cur):
+    try:
+        idx = chain.index(cur)
+        return chain[idx+1] if idx < len(chain)-1 else None
+    except ValueError:
+        pass
 
 def main():
     mw = MainWindow()
     sd = SendDialog(mw)
     msg = MsgText(sd)
 
+    chain = (mw, sd, msg)
+
     for e in ('down', 'paint', 'unhandled', 'close'):
         evt = Event(e)
-        print('\nSending event -{}- to MainWindow'.format(evt))
-        mw.handle(evt)
-        print('Sending event -{}- to SendDialog'.format(evt))
-        sd.handle(evt)
-        print('Sending event -{}- to MsgText'.format(evt))
-        msg.handle(evt)
+        point = chain[0]
+        print('')
+        while point:
+            print('Sending event -{}- to {}'.format(evt, point.__class__.__name__))
+            point.handle(evt)
+            point = get_next_point(chain, point)
 
 if __name__ == '__main__':
     main()
