@@ -1,3 +1,10 @@
+"""
+命令模式
+    1. 将一个操作封装成一个对象
+    2. 可以控制命令的执行时机, 顺序, 方式
+    3. 隐藏命令的细节
+"""
+
 import os
 
 verbose = True
@@ -55,11 +62,10 @@ def delete_file(path):
 def main():
     orig_name, new_name = 'file1', 'file2'
 
-    commands = []
-    for cmd in CreateFile(orig_name), ReadFile(orig_name), RenameFile(orig_name, new_name):
-        commands.append(cmd)
+    commands = [CreateFile(orig_name), ReadFile(orig_name), RenameFile(orig_name, new_name)]
 
-    [c.execute() for c in commands]
+    for c in commands:
+        c.execute()
 
     answer = input('reverse the executed commands? [y/n] ')
 

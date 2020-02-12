@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+"""原始代码的命名和继承关系很糟糕, DefaultFormatter继承Publisher真是不知所谓
+1. 对象的状态变化能够通知所有相关者(观察者)
+2. 观察者和观察者的数量是可以变化的
+"""
+
+
 class Publisher:
 
     def __init__(self):
@@ -15,14 +24,15 @@ class Publisher:
         except ValueError:
             print('Failed to remove: {}'.format(observer))
 
-    def notify(self):
-        [o.notify(self) for o in self.observers]
+    def push(self, obj):
+        # 不需要通知obj自身
+        [o.notify(obj) for o in self.observers if o != obj]
 
 
-class DefaultFormatter(Publisher):
+class DefaultFormatter(object):
 
-    def __init__(self, name):
-        Publisher.__init__(self)
+    def __init__(self, name, publisher):
+        self.publisher = publisher
         self.name = name
         self._data = 0
 
@@ -40,53 +50,46 @@ class DefaultFormatter(Publisher):
         except ValueError as e:
             print('Error: {}'.format(e))
         else:
-            self.notify()
+            self.publisher.push(self)
 
+    def notify(self, *args):
+        print(self)
 
-class HexFormatter:
+class HexFormatter(object):
 
-    def notify(self, publisher):
+    def notify(self, obj):
         print("{}: '{}' has now hex data = {}".format(type(self).__name__,
-                                                      publisher.name, hex(publisher.data)))
+                                                      obj.name, hex(obj.data)))
 
 
-class BinaryFormatter:
+class BinaryFormatter(object):
 
-    def notify(self, publisher):
+    def notify(self, obj):
         print("{}: '{}' has now bin data = {}".format(type(self).__name__,
-                                                      publisher.name, bin(publisher.data)))
+                                                      obj.name, bin(obj.data)))
 
 
 def main():
-    df = DefaultFormatter('test1')
-    print(df)
+    p = Publisher()
+    df = DefaultFormatter('test1', p)
+    p.add(df)
 
-    print()
     hf = HexFormatter()
-    df.add(hf)
+    p.add(hf)
     df.data = 3
-    print(df)
 
-    print()
     bf = BinaryFormatter()
-    df.add(bf)
+    p.add(bf)
     df.data = 21
-    print(df)
 
-    print()
-    df.remove(hf)
+    p.remove(hf)
     df.data = 40
-    print(df)
 
-    print()
-    df.remove(hf)
-    df.add(bf)
+    p.remove(hf)
+    p.add(bf)
     df.data = 'hello'
-    print(df)
 
-    print()
     df.data = 15.8
-    print(df)
 
 if __name__ == '__main__':
     main()

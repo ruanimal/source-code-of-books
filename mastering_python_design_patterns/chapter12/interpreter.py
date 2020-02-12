@@ -1,5 +1,12 @@
 # coding: utf-8
 
+"""
+解释器模式
+    1. 为专业用户准备
+    2. 以解释性DSL为实现
+"""
+
+
 from pyparsing import Word, OneOrMore, Optional, Group, Suppress, alphanums
 
 
