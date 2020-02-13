@@ -67,8 +67,7 @@ def main():
     TERMINATED = 'terminated'
 
     p1, p2 = Process('process1'), Process('process2')
-    [state_info(p) for p in (p1, p2)]
-
+    [state_info(p) for p in (p1, p2)]    # 不必要的生成器表达式
     print()
     transition(p1, p1.wait, WAITING)
     transition(p2, p2.terminate, TERMINATED)
