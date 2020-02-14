@@ -26,17 +26,20 @@ const invoices = [
 
 
 function statement(invoice, plays) {
-  return renderPlainText(invoice)
+  const statementData =  {}
+  statementData.customer = invoice.customer
+  statementData.performances = invoice.performances
+  return renderPlainText(statementData, invoice)
 }
 
-function renderPlainText(invoice) {
-  let result = `Statement for ${invoice.customer}\n`;
-  for (let perf of invoice.performances) {
+function renderPlainText(data) {
+  let result = `Statement for ${data.customer}\n`;
+  for (let perf of data.performances) {
     result += ` ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`;
   }
-  let totalAmount = appleSauce(invoice)
+  let totalAmount = appleSauce(data)
   result += `Amount owed is ${usd(totalAmount)}\n`;
-  result += `You earned ${totalVolumeCredits(invoice)} credits\n`;
+  result += `You earned ${totalVolumeCredits(data)} credits\n`;
   return result;
 
   function playFor(aPerformance) {
@@ -76,14 +79,14 @@ function renderPlainText(invoice) {
                           { style: "currency", currency: "USD",
                             minimumFractionDigits: 2 }).format(aNumber/100);
   }
-  function totalVolumeCredits() {
+  function totalVolumeCredits(invoice) {
     let result = 0
     for (let perf of invoice.performances) {
       result += volumeCreditsFor(perf)
     }
     return result
   }
-  function appleSauce() {
+  function appleSauce(invoice) {
     let result = 0;
     for (let perf of invoice.performances) {
       result += amountFor(perf);
