@@ -29,7 +29,9 @@ function statement(invoice, plays) {
   const statementData =  {}
   statementData.customer = invoice.customer
   statementData.performances = invoice.performances.map(enrichPerformance)
-  return renderPlainText(statementData, invoice)
+  statementData.totalVolumeCredits = totalVolumeCredits(statementData)
+  statementData.totalAmount = totalAmount(statementData)
+  return renderPlainText(statementData)
 
   function enrichPerformance(aPerformance) {
     const result = Object.assign({}, aPerformance)
@@ -71,24 +73,6 @@ function statement(invoice, plays) {
       return result
     }
   }
-}
-
-function renderPlainText(data) {
-  let result = `Statement for ${data.customer}\n`;
-  for (let perf of data.performances) {
-    result += ` ${perf.play.name}: ${usd(perf.amount)} (${perf.audience} seats)\n`;
-  }
-  let totalAmount = appleSauce(data)
-  result += `Amount owed is ${usd(totalAmount)}\n`;
-  result += `You earned ${totalVolumeCredits(data)} credits\n`;
-  return result;
-
-
-  function usd(aNumber) {
-    return new Intl.NumberFormat("en-US",
-                          { style: "currency", currency: "USD",
-                            minimumFractionDigits: 2 }).format(aNumber/100);
-  }
   function totalVolumeCredits(invoice) {
     let result = 0
     for (let perf of invoice.performances) {
@@ -96,12 +80,28 @@ function renderPlainText(data) {
     }
     return result
   }
-  function appleSauce(invoice) {
+  function totalAmount(invoice) {
     let result = 0;
     for (let perf of invoice.performances) {
       result += perf.amount;
     }
     return result
+  }
+}
+
+function renderPlainText(data) {
+  let result = `Statement for ${data.customer}\n`;
+  for (let perf of data.performances) {
+    result += ` ${perf.play.name}: ${usd(perf.amount)} (${perf.audience} seats)\n`;
+  }
+  result += `Amount owed is ${usd(data.totalAmount)}\n`;
+  result += `You earned ${data.totalVolumeCredits} credits\n`;
+  return result;
+
+  function usd(aNumber) {
+    return new Intl.NumberFormat("en-US",
+                          { style: "currency", currency: "USD",
+                            minimumFractionDigits: 2 }).format(aNumber/100);
   }
 }
 
