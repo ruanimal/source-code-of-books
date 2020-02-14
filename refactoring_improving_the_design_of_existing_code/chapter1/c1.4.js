@@ -73,7 +73,7 @@ function totalVolumeCredits(invoice) {
   return result
 }
 
-function statement (invoice, plays) {
+function statement (invoice) {
   let totalAmount = 0;
   let result = `Statement for ${invoice.customer}\n`;
   for (let perf of invoice.performances) {
@@ -86,4 +86,4 @@ function statement (invoice, plays) {
   return result;
 }
 
-console.log(statement(invoices[0], plays))
+console.log(statement(invoices[0]))
