@@ -35,6 +35,7 @@ function statement(invoice, plays) {
     const result = Object.assign({}, aPerformance)
     result.play = playFor(result, plays)
     result.amount = amountFor(result)
+    result.volumeCredits = volumeCreditsFor(result)
     return result
 
     function playFor(aPerformance, plays) {
@@ -61,6 +62,14 @@ function statement(invoice, plays) {
       }
       return result
     }
+    function volumeCreditsFor(perf) {
+      let result = 0;
+      result += Math.max(perf.audience - 30, 0);
+      if ("comedy" === perf.play.type) {
+        result += Math.floor(perf.audience / 5);
+      }
+      return result
+    }
   }
 }
 
@@ -74,14 +83,7 @@ function renderPlainText(data) {
   result += `You earned ${totalVolumeCredits(data)} credits\n`;
   return result;
 
-  function volumeCreditsFor(perf) {
-    let result = 0;
-    result += Math.max(perf.audience - 30, 0);
-    if ("comedy" === perf.play.type) {
-      result += Math.floor(perf.audience / 5);
-    }
-    return result
-  }
+
   function usd(aNumber) {
     return new Intl.NumberFormat("en-US",
                           { style: "currency", currency: "USD",
@@ -90,7 +92,7 @@ function renderPlainText(data) {
   function totalVolumeCredits(invoice) {
     let result = 0
     for (let perf of invoice.performances) {
-      result += volumeCreditsFor(perf)
+      result += perf.volumeCredits
     }
     return result
   }
