@@ -26,12 +26,16 @@ const invoices = [
 
 
 function statement(invoice, plays) {
-  const statementData =  {}
-  statementData.customer = invoice.customer
-  statementData.performances = invoice.performances.map(enrichPerformance)
-  statementData.totalVolumeCredits = totalVolumeCredits(statementData)
-  statementData.totalAmount = totalAmount(statementData)
-  return renderPlainText(statementData)
+  return renderPlainText(createStatementData(invoice, plays))
+}
+
+function createStatementData(invoice, plays) {
+  const result =  {}
+  result.customer = invoice.customer
+  result.performances = invoice.performances.map(enrichPerformance)
+  result.totalVolumeCredits = totalVolumeCredits(result)
+  result.totalAmount = totalAmount(result)
+  return result
 
   function enrichPerformance(aPerformance) {
     const result = Object.assign({}, aPerformance)
