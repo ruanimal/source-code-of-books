@@ -6,7 +6,7 @@ class PerformanceCalculator {
 
   get amount() {
     let result = 0;
-    switch (this.performances.play.type) {
+    switch (this.play.type) {
     case "tragedy":
       result = 40000;
       if (this.performances.audience > 30) {
@@ -21,7 +21,7 @@ class PerformanceCalculator {
       result += 300 * this.performances.audience;
       break;
       default:
-          throw new Error(`unknown type: ${this.performances.play.type}`);
+          throw new Error(`unknown type: ${this.play.type}`);
     }
     return result
   }
@@ -48,8 +48,8 @@ function createStatementData(invoice, plays) {
     const calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance))
     const result = Object.assign({}, aPerformance)
     result.play = calculator.play
-    result.amount = amountFor(result)
-    result.volumeCredits = volumeCreditsFor(result)
+    result.amount = calculator.amount
+    result.volumeCredits = calculator.volumeCredits
     return result
 
     function playFor(aPerformance) {
