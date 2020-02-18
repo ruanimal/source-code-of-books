@@ -1,3 +1,9 @@
+class PerformanceCalculator {
+  constructor(aPerformance) {
+    this.performances = aPerformance
+  }
+}
+
 function createStatementData(invoice, plays) {
   const result =  {}
   result.customer = invoice.customer
@@ -7,6 +13,7 @@ function createStatementData(invoice, plays) {
   return result
 
   function enrichPerformance(aPerformance) {
+    const calculator = new PerformanceCalculator(aPerformance)
     const result = Object.assign({}, aPerformance)
     result.play = playFor(result, plays)
     result.amount = amountFor(result)
