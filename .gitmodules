@@ -4,3 +4,6 @@
 [submodule "javaScriptDOM编程艺术"]
 	path = javaScriptDOM编程艺术
 	url = git@github.com:ruanima/javaScriptAndDOM.git
+[submodule "python_for_data_analysis"]
+	path = python_for_data_analysis
+	url = https://github.com/ruanima/pydata-book.git
