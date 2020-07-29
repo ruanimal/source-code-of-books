@@ -7,3 +7,6 @@
 [submodule "fluent-python"]
 	path = fluent-python
 	url = https://github.com/ruanima/example-code.git
+[submodule "python_for_data_analysis"]
+	path = python_for_data_analysis
+	url = https://github.com/ruanima/pydata-book.git
