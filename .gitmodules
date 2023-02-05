@@ -4,6 +4,9 @@
 [submodule "javaScriptDOM编程艺术"]
 	path = javaScriptDOM编程艺术
 	url = git@github.com:ruanimal/javaScriptAndDOM.git
+[submodule "fluent-python"]
+	path = fluent-python
+	url = https://github.com/ruanimal/example-code.git
 [submodule "python_for_data_analysis"]
 	path = python_for_data_analysis
 	url = https://github.com/ruanimal/pydata-book.git
