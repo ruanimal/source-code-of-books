@@ -1,9 +1,12 @@
 [submodule "python基础教程"]
 	path = python基础教程
-	url = https://github.com/ruanima/TenTinyPythonProject
+	url = https://github.com/ruanimal/TenTinyPythonProject
 [submodule "javaScriptDOM编程艺术"]
 	path = javaScriptDOM编程艺术
-	url = git@github.com:ruanima/javaScriptAndDOM.git
+	url = git@github.com:ruanimal/javaScriptAndDOM.git
 [submodule "python_for_data_analysis"]
 	path = python_for_data_analysis
-	url = https://github.com/ruanima/pydata-book.git
+	url = https://github.com/ruanimal/pydata-book.git
+[submodule "link-load-library-code"]
+	path = link-load-library-code
+	url = https://github.com/ruanimal/link-load-library-code
